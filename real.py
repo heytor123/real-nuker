@@ -215,7 +215,9 @@ async def on_ready():
                                      Y           I                       Y                \u001b[0m
                                       
                                               \u001b[31;1mMade by དΔØŜཌ eitor(real)#0368\u001b[0m
+                                              
                                           \u001b[33;1mConnected in : [ {real.user.name}#{real.user.discriminator} ]\u001b[33;1m
+                                          
                                           ID : [{real.user.id} ] {Fore.RESET}
                                     
                           \u001b[31;1m[============\u001b[0m\u001b[31;2m Type {prefix}cmds to get a list of the commands. {Fore.RESET}\u001b[31;1m============]\u001b[0m""") 
