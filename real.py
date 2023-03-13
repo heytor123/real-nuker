@@ -33,8 +33,7 @@ def check():
         return "user"
     elif r.status_code == 429:
         os.system("cls")
-        print("""
-        You are being rate limited! retry again in a few minutes.""")
+        print("       You are being rate limited! retry again in a few minutes.")
         input()
     else:
         return "bot"
