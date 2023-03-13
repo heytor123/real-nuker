@@ -6,7 +6,6 @@ import time
 import requests
 import os
 from discord.ext.commands import CommandNotFound
-import random
 import colorama
 from colorama import Fore, Back, Style
 import asyncio
