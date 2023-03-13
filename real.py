@@ -247,11 +247,11 @@ async def rolescan(ctx):
         pass
     try:
         print(f"\n             {ctx.guild.name}'s roles; \n           ================================")
-        for role in ctx.guild.roles:
+        for role in reversed(ctx.guild.roles):
             print(f"             -> {role}")
     except:
         pass
-    print("           ========================\n                    - P.S : The roles perms are in order (probably).")
+    print("           ========================\n                    - P.S : The roles perms are in order.")
 
 
 @real.command()
