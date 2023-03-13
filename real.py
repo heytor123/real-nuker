@@ -33,7 +33,7 @@ def check():
         return "user"
     elif r.status_code == 429:
         os.system("cls")
-        print(f"""
+        print("""
         You are being rate limited! retry again in a few minutes.""")
         input()
     else:
@@ -47,9 +47,7 @@ user = 'user'
 
 if user == check():
     try:
-        intents = discord.Intents.default()
-        intents.members = True
-        real = commands.Bot(command_prefix=prefix, self_bot=True, intents=intents)
+        real = commands.Bot(command_prefix=prefix, self_bot=True)
         real.remove_command("help")
         headers = {
         "authorization": token
