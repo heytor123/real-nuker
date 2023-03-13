@@ -274,7 +274,7 @@ async def cmds(ctx):
 -[ - $rolescan [gets all roles coz yes]    ]
 -[ - $hi [does the funni]                  ]
 -[ ========================================]
--[ - will ad a massban soon                ]
+-[ - will add a massban soon                ]
 -[ - on a bot is faster than selfbot       ]
 -[ ======================================= ]```""")
         asyncio.sleep(16)
