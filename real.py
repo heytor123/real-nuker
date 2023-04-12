@@ -14,7 +14,7 @@ token = "" #token here
 
 prefix = "$"
 
-nuke1 = False
+
 
 
 spam = "@everyone"
@@ -64,6 +64,7 @@ else:
     except:
         pass  
 
+nuke1 = False
 
 def chn1():
     try:
